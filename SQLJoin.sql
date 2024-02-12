@@ -46,8 +46,9 @@ This query should return:
 -  the employee's first and last name
 -  the name of each product
 -  and how many of that product they sold */
-SELECT employees.EmployeeID AS ID, CONCAT(employees.FirstName, ' ', employees.LastName) AS Employee, products.Name AS Product_Name, sales.Quantity AS Amount_Sold
+SELECT employees.EmployeeID AS ID, CONCAT(employees.FirstName, ' ', employees.LastName) AS Employee, products.Name AS Product_Name, SUM(sales.Quantity) AS Amount_Sold
 	FROM employees
     INNER JOIN sales ON employees.EmployeeID = sales.EmployeeID
     INNER JOIN products ON sales.ProductID = products.ProductID
-    ORDER BY ID DESC;
+    GROUP BY employees.EmployeeID, products.ProductID
+	ORDER BY ID DESC, Product_Name;
