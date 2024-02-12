@@ -26,14 +26,14 @@ SELECT categories.Name AS Category, departments.Name AS Department
     
 /* joins: find the product name, total # sold, and total price sold,
  for Eagles: Hotel California --You may need to use SUM() */
- SELECT products.Name AS  Eagles_Album, SUM(sales.quantity) AS Total_Sold, SUM(sales.PricePerUnit) AS Total_Price_Sold
+ SELECT products.Name AS  Eagles_Album, SUM(sales.quantity) AS Total_Sold, SUM(sales.Quantity * sales.PricePerUnit) AS Total_Price_Sold
 	FROM products
     INNER JOIN sales ON products.ProductID = sales.ProductID
     WHERE products.Name = 'Eagles: Hotel California'
     GROUP BY Eagles_Album;
 
 /* joins: find Product name, reviewer name, rating, and comment on the Visio TV. (only return for the lowest rating!) */
-SELECT products.Name AS Visio_TV, reviews.Rating AS Rating, reviews.Comment AS Comment
+SELECT products.Name AS Product, reviews.Reviewer AS Reviewer_Name, reviews.Rating AS Rating, reviews.Comment AS Comment
 	From products
     INNER JOIN reviews ON products.ProductID = reviews.ProductID
     WHERE products.Name = 'Visio TV' AND reviews.Rating = (SELECT MIN(reviews.Rating)
